@@ -12,6 +12,7 @@ else
 fi;
 
 #activate environment
+echo "Activating environment:"
 . "$ENV_DIR/bin/activate"
 
 
