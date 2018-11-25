@@ -12,7 +12,7 @@ def coeff_sum(coeff_map):
         
     return res
 
-class CostFunction:
+class ILCostFunction:
      #constants:
     MIN="min"
     MAX="max"
@@ -20,7 +20,7 @@ class CostFunction:
                 MAX :'max'}
                 
     def __init__(self, KIND="min"):
-        self.pref = CostFunction.COST_KIND[KIND]
+        self.pref = ILCostFunction.COST_KIND[KIND]
         self.cost_fun=None
         
     def set_coeff_map(self, coeff_map):
@@ -34,10 +34,10 @@ class CostFunction:
     
     
     def isMin(self):
-        return self.pref==CostFunction.COST_KIND[CostFunction.MIN]
+        return self.pref==ILCostFunction.COST_KIND[ILCostFunction.MIN]
     
     def isMax(self):
-        return self.pref==CostFunction.COST_KIND[CostFunction.MAX]
+        return self.pref==ILCostFunction.COST_KIND[ILCostFunction.MAX]
         
     def getObjectiveAsString(self):
         if self.cost_fun is None:
@@ -100,13 +100,13 @@ class ILConstrain:
         
 class ILProblem:
     
-    def __init__(self):
+    def __init__(self, cost_fun_kind='min'):
         self.comment="model created by ilpbuilder"
         self.constrains=[]
         self.bin_vars=set()
         self.int_vars=set()
         self.free_vars=set()
-        self.cost_fun=CostFunction()
+        self.cost_fun=ILCostFunction(cost_fun_kind)
     
     def add_constrain(self, constrain):
         self.constrains.append(constrain)

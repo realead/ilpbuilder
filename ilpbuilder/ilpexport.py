@@ -18,13 +18,18 @@ class LPExporter:
         self.lines.append(constrain.toString()+';\n')
         
     def bin_vars_found(self, bin_vars):
-        self.lines.append("bin "+", ".join(bin_vars)+";\n")
+        self.lines.append("bin "+", ".join(sorted(bin_vars))+";\n")
         
     def int_vars_found(self, int_vars):
-        self.lines.append("int "+", ".join(int_vars)+";\n")
+        self.lines.append("int "+", ".join(sorted(int_vars))+";\n")
         
     def get_lines(self):
         return self.lines
+
+    def save_to(self, file_name_ilp):
+        lines = self.get_lines()
+        with open(file_name_ilp,'w') as f:
+            f.writelines(lines)
         
         
 class IBMLPExporter:
@@ -53,12 +58,19 @@ class IBMLPExporter:
         
     def bin_vars_found(self, bin_vars):
         self.lines.append('BINARY\n')
-        self.lines.append(' '+" ".join(bin_vars)+"\n")
+        self.lines.append(' '+" ".join(sorted(bin_vars))+"\n")
         
     def int_vars_found(self, int_vars):
         self.lines.append('GENERAL\n')
-        self.lines.append(' '+" ".join(int_vars)+"\n")
+        self.lines.append(' '+" ".join(sorted(int_vars))+"\n")
         
     def get_lines(self):
         self.lines.append('END\n')
         return self.lines
+
+    def save_to(self, file_name_ilp):
+        lines = self.get_lines()
+        with open(file_name_ilp,'w') as f:
+            f.writelines(lines)
+
+ 
